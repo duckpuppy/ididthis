@@ -5,3 +5,4 @@ describe Ididthis do
     expect(Ididthis::VERSION).not_to be nil
   end
 end
+
