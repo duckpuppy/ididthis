@@ -8,8 +8,13 @@ module Ididthis
         Config.configure!
         puts "Config file created at #{Config::PATH.inspect}"
       end
+
+      def done
+      end
+
+      def refresh
+      end
+
     end
   end
 end
-
-Ididthis::CLI::CLI.start(ARGV)
