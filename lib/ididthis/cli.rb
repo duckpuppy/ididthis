@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 require 'thor'
+require 'ididthis'
+
 # require 'ididthis/cli/done'
 
 module Ididthis
@@ -11,13 +13,12 @@ module Ididthis
     end
 
     desc "post [OPTIONS] DONE", "Post a new done"
+    option :date, :aliases => "-d", :type => :string, :default => Time.new.getlocal.strftime("%Y-%m-%d"), :banner => "YYYY-MM-DD", :desc => "The date for this done."
+    option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "The team to post to."
+    option :goal, :aliases => "-g", :type => :boolean, :desc => "Post a goal rather than a done"
     def post(done)
-      puts "You tried to post '#{done}', with options #{options}"
-    end
-
-    desc "goal [OPTIONS] DONE", "Post a new goal"
-    def goal(done)
-      post(done)
+      c = Ididthis::API::Client.new
+      c.post_done(Ididthis::Config[:token], options[:goal] ? "[] #{done}" : done, options)
     end
 
     desc "log [OPTIONS]", "List dones"
