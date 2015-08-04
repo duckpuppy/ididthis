@@ -15,7 +15,10 @@ module Ididthis
       end
 
       def get_teams(token)
-        RestClient.get(ENDPOINTS[:team], {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}) { |response, request, result, &block|
+        RestClient.get(
+          ENDPOINTS[:team], 
+          {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
+        ) do |response, request, result, &block|
           case response.code
           when 200
             resp = JSON.parse(response.body, :symbolize_names => true)
@@ -24,11 +27,14 @@ module Ididthis
           else
             response.return!(request, result, &block)
           end
-        }
+        end
       end
 
       def get_team(token)
-        RestClient.get(Ididthis::Config[:team], {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}) { |response, request, result, &block|
+        RestClient.get(
+          Ididthis::Config[:team], 
+          {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
+        ) do |response, request, result, &block|
           case response.code
           when 200
             resp = JSON.parse(response.body, :symbolize_names => true)
@@ -36,13 +42,17 @@ module Ididthis
           else
             response.return!(request, result, &block)
           end
-        }
+        end 
       end
 
-      def post_done(token, done)
+      def post_done(token, done, team, options)
+        payload = {:raw_text => done, :team => team}
+        payload[:done_date] = options[:date] if options[:date]
+        payload[:meta_data] = options[:metadata] if options[:metadata]
+
         RestClient.post(
           ENDPOINTS[:dones], 
-          {:raw_text => done, :team => Ididthis::Config[:team]}.to_json, 
+          payload.to_json, 
           {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
         ) do |response, request, result, &block|
           case response.code
@@ -50,6 +60,21 @@ module Ididthis
             puts "Posted your done!"
           else
             puts "Something went wrong, HTTP status code was #{response.code}."
+          end
+        end
+      end
+
+      def get_dones(token, options)
+        RestClient.get(
+          ENDPOINTS[:dones],
+          {:content_type => :json, :accept => :json, :Authorization => tokenize(token), :params => options},
+        ) do |response, request, result, &block|
+          case response.code
+          when 200
+            resp = JSON.parse(response, :symbolize_names => true)
+            resp[:ok] ? resp[:results] : {}
+          else
+            response.return!(request, result, &block)
           end
         end
       end

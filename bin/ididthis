@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'ididthis'
+
+Ididthis::CommandLine.start(ARGV)

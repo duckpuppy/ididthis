@@ -8,6 +8,7 @@ module Ididthis
 
     def defaults
       {
+        teams: {},
         team: '',
         token: ''
       }
@@ -47,7 +48,7 @@ module Ididthis
       end
 
       File.open(PATH, 'w') do |f|
-        f << { :token => token, :team => team[:short_name] }.to_yaml
+        f << { :token => token, :team => team[:short_name], :teams => teams }.to_yaml
       end
     end
 

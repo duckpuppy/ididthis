@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
+begin
+  require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
+rescue LoadError
+  raise "You must gem install win32console to use color on Windows"
+end
 
 require "ididthis/version"
 require "ididthis/config"
 require "ididthis/api"
+require "ididthis/cli"
 require "highline/import"
 require "json"
 
