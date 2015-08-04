@@ -45,8 +45,8 @@ module Ididthis
         end 
       end
 
-      def post_done(token, done, options)
-        payload = {:raw_text => done, :team => options.fetch(:team, Ididthis::Config[:team])}
+      def post_done(token, done, team, options)
+        payload = {:raw_text => done, :team => team}
         payload[:done_date] = options[:date] if options[:date]
         payload[:meta_data] = options[:metadata] if options[:metadata]
 
@@ -60,6 +60,21 @@ module Ididthis
             puts "Posted your done!"
           else
             puts "Something went wrong, HTTP status code was #{response.code}."
+          end
+        end
+      end
+
+      def get_dones(token, options)
+        RestClient.get(
+          ENDPOINTS[:dones],
+          {:content_type => :json, :accept => :json, :Authorization => tokenize(token), :params => options},
+        ) do |response, request, result, &block|
+          case response.code
+          when 200
+            resp = JSON.parse(response, :symbolize_names => true)
+            resp[:ok] ? resp[:results] : {}
+          else
+            response.return!(request, result, &block)
           end
         end
       end
