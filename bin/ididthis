@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
-require File.expand_path('lib/ididthis/cli/cli', Dir.pwd)
-Ididthis::CLI::CLI.start(ARGV)
+require 'ididthis'
+
+Ididthis::CommandLine.start(ARGV)

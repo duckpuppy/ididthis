@@ -3,6 +3,7 @@
 require "ididthis/version"
 require "ididthis/config"
 require "ididthis/api"
+require "ididthis/cli"
 require "highline/import"
 require "json"
 
