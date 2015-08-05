@@ -32,5 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "coveralls", "~> 0.8"
   spec.add_development_dependency "rubocop", "~> 0.33"
   spec.add_development_dependency "rubocop-rspec", "~> 1.3"
-  spec.add_development_dependency "codeclimate-test-reporter"
+  spec.add_development_dependency "codeclimate-test-reporter", "~> 0.4"
 end
