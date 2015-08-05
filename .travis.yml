@@ -5,6 +5,8 @@ rvm:
 - jruby
 before_install:
 - gem install bundler -v 1.10.2
+script:
+  - bundle exec rake build
 notifications:
   pushover:
     api_key:
