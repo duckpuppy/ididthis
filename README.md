@@ -1,5 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/ididthis.svg)](http://badge.fury.io/rb/ididthis)
 [![Build Status](https://travis-ci.org/duckpuppy/ididthis.svg)](https://travis-ci.org/duckpuppy/ididthis)
+[![Dependency Status](https://gemnasium.com/duckpuppy/ididthis.svg)](https://gemnasium.com/duckpuppy/ididthis)
+[![Code Climate](https://codeclimate.com/github/duckpuppy/ididthis/badges/gpa.svg)](https://codeclimate.com/github/duckpuppy/ididthis)
 
 # Ididthis
 
