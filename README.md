@@ -1,3 +1,9 @@
+[![Gem Version](https://badge.fury.io/rb/ididthis.svg)](http://badge.fury.io/rb/ididthis)
+[![Build Status](https://travis-ci.org/duckpuppy/ididthis.svg)](https://travis-ci.org/duckpuppy/ididthis)
+[![Dependency Status](https://gemnasium.com/duckpuppy/ididthis.svg)](https://gemnasium.com/duckpuppy/ididthis)
+[![Code Climate](https://codeclimate.com/github/duckpuppy/ididthis/badges/gpa.svg)](https://codeclimate.com/github/duckpuppy/ididthis)
+[![Coverage Status](https://coveralls.io/repos/duckpuppy/ididthis/badge.svg?branch=master&service=github)](https://coveralls.io/github/duckpuppy/ididthis?branch=master)
+
 # Ididthis
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ididthis`. To experiment with that code, run `bin/console` for an interactive prompt.
