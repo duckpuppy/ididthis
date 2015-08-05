@@ -5,6 +5,7 @@ require 'ididthis/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ididthis"
+  spec.description   = "A command line utility for posting and viewing dones on iDidThis."
   spec.version       = Ididthis::VERSION
   spec.authors       = ["Patrick Aikens"]
   spec.email         = ["paikens@gmail.com"]
