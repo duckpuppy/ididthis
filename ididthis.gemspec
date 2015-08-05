@@ -21,12 +21,12 @@ Gem::Specification.new do |spec|
   spec.cert_chain    = ['certs/duckpuppy.pem']
   spec.signing_key   = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/
 
-  spec.add_dependency "highline"
-  spec.add_dependency "rest-client"
-  spec.add_dependency "thor"
-  spec.add_development_dependency "dotenv"
+  spec.add_dependency "highline", "~> 1.7.3"
+  spec.add_dependency "rest-client", "~> 1.8.0"
+  spec.add_dependency "thor", "~> 0.19.1"
+  spec.add_development_dependency "dotenv", "~> 2.0.2"
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "pry"
+  spec.add_development_dependency "rspec", "~> 3.3.0"
+  spec.add_development_dependency "pry", "~> 0.10.1"
 end
