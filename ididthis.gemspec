@@ -18,9 +18,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.cert_chain    = ['certs/duckpuppy.pem']
-  spec.signing_key   = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/
-
   spec.add_dependency "highline", "~> 1.7.3"
   spec.add_dependency "rest-client", "~> 1.8.0"
   spec.add_dependency "thor", "~> 0.19.1"
