@@ -1,4 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/ididthis.svg)](http://badge.fury.io/rb/ididthis)
+[![Build Status](https://travis-ci.org/duckpuppy/ididthis.svg)](https://travis-ci.org/duckpuppy/ididthis)
 
 # Ididthis
 
