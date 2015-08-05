@@ -7,9 +7,6 @@ before_install:
 - gem install bundler -v 1.10.2
 script:
   - bundle exec rake test
-addons:
-  code_climate:
-    repo_token: 2f6dd8bdf0080a5c964515062002f58e27a86b063913d55089cfaea08fad0634
 notifications:
   pushover:
     api_key:
