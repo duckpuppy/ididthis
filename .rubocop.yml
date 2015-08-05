@@ -1,2 +1,30 @@
 require: rubocop-rspec
 
+AllCops:
+  Include:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'ididthis.gemspec'
+  Exclude:
+    - bin/*
+
+Encoding:
+  Enabled: false
+
+CollectionMethods:
+  PreferredMethods:
+    collect:  'map'
+    inject:   'reduce'
+    find:     'detect'
+    find_all: 'select'
+
+# Enforce outdented access modifiers
+AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+# Standardize on double quotes
+StringLiterals:
+  EnforcedStyle: double_quotes

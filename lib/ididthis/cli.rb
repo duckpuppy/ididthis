@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-require 'thor'
-require 'ididthis'
+require "thor"
+require "ididthis"
 
 module Ididthis
   class CommandLine < Thor
@@ -19,8 +19,8 @@ module Ididthis
     desc "post [OPTIONS] DONE", "Post a new done"
     long_desc <<-POST
 
-    `post` will post a new done or goal to iDoneThis.  
-    To tag the done, simply include the tags in the done using #hashtags.  If any tag doesn't already exist, it will be created.
+    `post` will post a new done or goal to iDoneThis.
+    To tag the done, simply include the tags in the done using #hashtags.  If any tag doesn"t already exist, it will be created.
     POST
     option :date, :aliases => "-d", :type => :string, :banner => "YYYY-MM-DD", :desc => "The date for this done."
     option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "The team to post to."
@@ -39,7 +39,7 @@ module Ididthis
     option :after, :type => :string, :banner => "YYYY-MM-DD", :desc => "Show only dones on or after DATE"
     option :before, :type => :string, :banner => "YYYY-MM-DD", :desc => "Show only dones on or before DATE"
     option :tags, :type => :string, :banner => "TAG...", :desc => "Show only dones tagged with TAGs.  Comma separated list."
-    option :order, :type => :string, :banner => "ORDER", :enum => ['created', 'done_date', '-created', '-done_date'], :desc => "Order results by ORDER."
+    option :order, :type => :string, :banner => "ORDER", :enum => ["created", "done_date", "-created", "-done_date"], :desc => "Order results by ORDER."
     option :limit, :aliases => "-l", :type => :numeric, :banner => "LIMIT", :desc => "Limit the number of results returned. Maximum of 100."
     option :page, :aliases => "-p", :type => :numeric, :banner => "PAGE", :desc => "Used in conjunction with --limit to get more results."
     def dones

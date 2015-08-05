@@ -1,23 +1,23 @@
-require 'rest-client'
+require "rest-client"
 
 module Ididthis
   module API
     class Client
       def validate_token(token)
-        RestClient.get(ENDPOINTS[:noop], {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}) { |response, request, result, &block|
+        RestClient.get(ENDPOINTS[:noop], :content_type => :json, :accept => :json, :Authorization => tokenize(token)) do |response|
           case response.code
           when 200
             return true
           else
             return false
           end
-        }
+        end
       end
 
       def get_teams(token)
         RestClient.get(
-          ENDPOINTS[:team], 
-          {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
+          ENDPOINTS[:team],
+          :content_type => :json, :accept => :json, :Authorization => tokenize(token)
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -86,4 +86,3 @@ module Ididthis
     end
   end
 end
-

@@ -1,7 +1,7 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ididthis/version'
+require "ididthis/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ididthis"
@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Patrick Aikens"]
   spec.email         = ["paikens@gmail.com"]
 
-  spec.summary       = %q{Command line interface to iDoneThis using the API}
+  spec.summary       = "Command line interface to iDoneThis using the API"
   spec.homepage      = "https://github.com/duckpuppy/ididthis.git"
   spec.license       = "MIT"
 
