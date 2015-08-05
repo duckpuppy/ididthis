@@ -3,6 +3,7 @@
 [![Dependency Status](https://gemnasium.com/duckpuppy/ididthis.svg)](https://gemnasium.com/duckpuppy/ididthis)
 [![Code Climate](https://codeclimate.com/github/duckpuppy/ididthis/badges/gpa.svg)](https://codeclimate.com/github/duckpuppy/ididthis)
 [![Coverage Status](https://coveralls.io/repos/duckpuppy/ididthis/badge.svg?branch=master&service=github)](https://coveralls.io/github/duckpuppy/ididthis?branch=master)
+[![Coverage Status (develop)](https://coveralls.io/repos/duckpuppy/ididthis/badge.svg?branch=develop&service=github)](https://coveralls.io/github/duckpuppy/ididthis?branch=develop)
 
 # Ididthis
 
