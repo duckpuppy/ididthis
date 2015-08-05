@@ -5,6 +5,9 @@ require "ididthis"
 module Ididthis
   # Class providing the command line interface processing
   class CommandLine < Thor
+    class_option :verbose, :type => :boolean
+    class_option :color, :type => :boolean
+
     desc "configure", "(Re)configure the client."
     long_desc <<-CONFIGURE
 
