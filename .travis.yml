@@ -6,6 +6,7 @@ rvm:
 before_install:
 - gem install bundler -v 1.10.2
 script:
+  - bundle exec rake test
   - bundle exec rake build
 addons:
   code_climate:
