@@ -15,6 +15,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new do |task|
   task.requires << "rubocop-rspec"
+  task.options = ["-fh", "-ocoverage/rubocop.html", "-fj",  "-ocoverage/rubocop.json"]
 end
 
 Gem::Tasks.new(
@@ -26,3 +27,19 @@ end
 
 task default: :spec
 task test: :spec
+
+namespace :reports do
+  desc "Open test coverage in browser"
+  task :coverage => [:test] do
+    # TODO: Switch based on OS
+    `open coverage/index.html`
+  end
+
+  desc "Open RuboCop report in browser"
+  task :rubocop do
+    sh "bundle exec rake rubocop" do
+      # Ignore errors
+    end
+    `open coverage/rubocop.html`
+  end
+end
