@@ -3,6 +3,7 @@
 [![Dependency Status](https://gemnasium.com/duckpuppy/ididthis.svg)] [gemnasium]
 [![Code Climate](https://codeclimate.com/github/duckpuppy/ididthis/badges/gpa.svg)] [code_climate]
 [![Coverage Status](https://coveralls.io/repos/duckpuppy/ididthis/badge.svg?branch=develop&service=github)] [coveralls]
+[![Downloads](https://img.shields.io/gem/dtv/ididthis.svg)]()
 
 [rubygems]: http://badge.fury.io/rb/ididthis
 [travis]: https://travis-ci.org/duckpuppy/ididthis

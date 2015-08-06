@@ -27,7 +27,8 @@ module Ididthis
           case response.code
           when 200
             resp = JSON.parse(response.body, :symbolize_names => true)
-            # FIXME: This is not right, need to throw an error when no teams are found
+            # FIXME: This is not right, need to throw an error when no teams
+            #   are found
             resp[:ok] ? resp[:results] : []
           else
             response.return!(request, result, &block)
@@ -49,10 +50,7 @@ module Ididthis
       end
 
       def post_done(done, team, options)
-        payload = { raw_text: done, team: team }
-        payload[:done_date] = options[:date] if options[:date]
-        payload[:meta_data] = options[:metadata] if options[:metadata]
-
+        payload = { raw_text: done, team: team }.merge(options)
         RestClient.post(
           ENDPOINTS[:dones], payload.to_json, header_map) do |response|
           case response.code

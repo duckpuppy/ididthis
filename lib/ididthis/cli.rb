@@ -28,8 +28,11 @@ module Ididthis
     option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "The team to post to."
     option :goal, :aliases => "-g", :type => :boolean, :desc => "Post a goal rather than a done"
     def post(done)
+      post_options = {}
+      post_options[:done_date] = options[:date] if options[:date]
+      post_options[:meta_data] = options[:metadata] if options[:metadata]
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
-      c.post_done(options[:goal] ? "[] #{done}" : done, options[:team], options)
+      c.post_done(options[:goal] ? "[] #{done}" : done, options[:team], post_options)
     end
 
     desc "dones [OPTIONS]", "List dones"
