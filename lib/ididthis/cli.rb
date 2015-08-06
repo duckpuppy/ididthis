@@ -56,7 +56,8 @@ module Ididthis
     def teams
     end
 
-    private
+private
+
     def colorize(text, color_code)
       "#{color_code}#{text}\e[0m"
     end
