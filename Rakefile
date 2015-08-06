@@ -16,7 +16,8 @@ RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new do |task|
   task.requires << "rubocop-rspec"
-  task.options = ["-fh", "-ocoverage/rubocop.html", "-fj",  "-ocoverage/rubocop.json"]
+  task.options = ["-fh", "-ocoverage/rubocop.html",
+                  "-fj", "-ocoverage/rubocop.json"]
 end
 
 Gem::Tasks.new(

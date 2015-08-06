@@ -28,3 +28,6 @@ EmptyLinesAroundAccessModifier:
 # Standardize on double quotes
 StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/HashSyntax:
+  Enabled: false
