@@ -5,6 +5,7 @@ require "dotenv/tasks"
 require "rake/clean"
 require "rdoc/task"
 require "rubocop/rake_task"
+require "git-version-bump/rake-tasks"
 
 lib_dir = File.expand_path("lib", File.dirname(__FILE__))
 $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)

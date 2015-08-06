@@ -1,3 +1,5 @@
+require 'git-version-bump'
+
 module Ididthis
-  VERSION = "0.1.1"
+  VERSION = GVB.version
 end
