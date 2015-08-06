@@ -1,9 +1,7 @@
-$TESTING = true
-
-require 'dotenv'
+require "dotenv"
 Dotenv.load
 
-require 'simplecov'
+require "simplecov"
 
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'ididthis'
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "ididthis"

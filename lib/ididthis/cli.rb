@@ -20,7 +20,8 @@ module Ididthis
     long_desc <<-POST
 
     `post` will post a new done or goal to iDoneThis.
-    To tag the done, simply include the tags in the done using #hashtags.  If any tag doesn"t already exist, it will be created.
+    To tag the done, simply include the tags in the done using #hashtags.
+    If any tag doesn"t already exist, it will be created.
     POST
     option :date, :aliases => "-d", :type => :string, :banner => "YYYY-MM-DD", :desc => "The date for this done."
     option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "The team to post to."
@@ -62,8 +63,14 @@ private
       "#{color_code}#{text}\e[0m"
     end
 
-    def red(text); colorize(text, "\e[31m"); end
-    def green(text); colorize(text, "\e[32m"); end
-    def yellow(text); colorize(text, "\e[33m"); end
+    def red(text); colorize(text, COLORS[:red]); end
+    def green(text); colorize(text, COLORS[:green]); end
+    def yellow(text); colorize(text, COLORS[:yellow]); end
+
+    COLORS = {
+      red: "\e[31m",
+      green: "\e[32m",
+      yellow: "\e[33m"
+    }
   end
 end
