@@ -22,7 +22,8 @@ end
 
 Gem::Tasks.new(
   build: { gem: true, tar: true, zip: true },
-  sign: { checksum: true, pgp: false }
+  sign:  { checksum: true, pgp: false },
+  scm:   { tag: false }
 ) do |tasks|
   tasks.console.command = "pry"
 end

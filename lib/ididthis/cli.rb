@@ -24,9 +24,21 @@ module Ididthis
     To tag the done, simply include the tags in the done using #hashtags.
     If any tag doesn"t already exist, it will be created.
     POST
-    option :date, :aliases => "-d", :type => :string, :banner => "YYYY-MM-DD", :desc => "The date for this done."
-    option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "The team to post to."
-    option :goal, :aliases => "-g", :type => :boolean, :desc => "Post a goal rather than a done"
+    option :date,
+           :aliases => "-d",
+           :type    => :string,
+           :banner  => "YYYY-MM-DD",
+           :desc    => "The date for this done."
+    option :team,
+           :aliases => "-t",
+           :type    => :string,
+           :default => Ididthis::Config[:team],
+           :banner  => "SHORT_NAME",
+           :desc    => "The team to post to."
+    option :goal,
+           :aliases => "-g",
+           :type    => :boolean,
+           :desc    => "Post a goal rather than a done"
     def post(done)
       post_options = {}
       post_options[:done_date] = options[:date] if options[:date]
