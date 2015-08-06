@@ -3,6 +3,7 @@ require "thor"
 require "ididthis"
 
 module Ididthis
+  # Class providing the command line interface processing
   class CommandLine < Thor
     desc "configure", "(Re)configure the client."
     long_desc <<-CONFIGURE
@@ -47,17 +48,20 @@ module Ididthis
       query_mappings = { date: "done_date", after: "done_date_after", before: "done_date_before", order: "order_by", limit: "page_size" }
       params = Hash[options.map { |k, v| [query_mappings[k] || k, v] }]
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
-      dones = c.get_dones(params)
-      dones.each do |done|
-        puts "#{yellow(done[:done_date])} #{green(done[:owner])}\t#{done[:raw_text]}".gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m")
-      end
+      print_dones(c.get_dones(params))
     end
 
     desc "teams", "Update your team list from the server."
     def teams
     end
 
-private
+  private
+
+    def print_dones(dones)
+      dones.each do |done|
+        puts "#{yellow(done[:done_date])} #{green(done[:owner])}\t#{done[:raw_text]}".gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m")
+      end
+    end
 
     def colorize(text, color_code)
       "#{color_code}#{text}\e[0m"

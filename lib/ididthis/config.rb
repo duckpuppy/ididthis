@@ -27,7 +27,7 @@ module Ididthis
       token = ask_token
 
       client = Ididthis::API::Client.new(token)
-      teams = client.get_teams()
+      teams = client.get_teams
       team = ask_team(teams)
 
       File.open(PATH, "w") do |f|
@@ -53,7 +53,7 @@ module Ididthis
         tkn.responses[:ask_on_error] = :question
         tkn.validate = lambda do |t|
           client = Ididthis::API::Client.new(t)
-          client.validate_token()
+          client.validate_token
         end
       end
     end
