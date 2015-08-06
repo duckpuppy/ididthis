@@ -48,7 +48,7 @@ module Ididthis
       query_mappings = { date: "done_date", after: "done_date_after", before: "done_date_before", order: "order_by", limit: "page_size" }
       params = Hash[options.map { |k, v| [query_mappings[k] || k, v] }]
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
-      print_dones(c.get_dones(params))
+      print_dones(c.dones(params))
     end
 
     desc "teams", "Update your team list from the server."

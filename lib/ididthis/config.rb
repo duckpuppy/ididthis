@@ -2,6 +2,7 @@ require "highline/import"
 require "yaml"
 
 module Ididthis
+  # Handles creating and retrieving configuration
   module Config
   module_function
 
@@ -27,7 +28,7 @@ module Ididthis
       token = ask_token
 
       client = Ididthis::API::Client.new(token)
-      teams = client.get_teams
+      teams = client.teams
       team = ask_team(teams)
 
       File.open(PATH, "w") do |f|

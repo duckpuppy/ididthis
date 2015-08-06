@@ -12,6 +12,7 @@ require "ididthis/cli"
 require "highline/import"
 require "json"
 
+# Main module
 module Ididthis
   CONFIG_FILE = File.expand_path("~/.ididthis")
   API_VERSION = "0.1"

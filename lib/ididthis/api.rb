@@ -2,6 +2,7 @@ require "rest-client"
 
 module Ididthis
   module API
+    # Class for accessing the iDoneThis API
     class Client
       attr_writer :token
 
@@ -9,7 +10,7 @@ module Ididthis
         @token = token
       end
 
-      def validate_token()
+      def validate_token
         RestClient.get(ENDPOINTS[:noop], header_map) do |response|
           case response.code
           when 200
@@ -20,7 +21,7 @@ module Ididthis
         end
       end
 
-      def get_teams()
+      def teams
         RestClient.get(ENDPOINTS[:team], header_map
         ) do |response, request, result, &block|
           case response.code
@@ -34,7 +35,7 @@ module Ididthis
         end
       end
 
-      def get_team()
+      def team
         RestClient.get(Ididthis::Config[:team], header_map
         ) do |response, request, result, &block|
           case response.code
@@ -63,7 +64,7 @@ module Ididthis
         end
       end
 
-      def get_dones(options)
+      def dones(options)
         RestClient.get(
           ENDPOINTS[:dones],
           header_map.merge(:params => options)
@@ -78,7 +79,7 @@ module Ididthis
         end
       end
 
-      def header_map()
+      def header_map
         {
           :content_type => :json,
           :accept => :json,
