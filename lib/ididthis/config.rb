@@ -24,19 +24,18 @@ module Ididthis
     end
 
     def configure!
-      client = Ididthis::API::Client.new
       token = ask_token
 
-      teams = client.get_teams(token)
-      team = ask_team
+      client = Ididthis::API::Client.new(token)
+      teams = client.get_teams()
+      team = ask_team(teams)
+
       File.open(PATH, "w") do |f|
         f << { :token => token,
                :team => team[:short_name],
                :teams => teams }.to_yaml
       end
     end
-
-  private
 
     def configs
       if File.exist?(PATH)
@@ -53,12 +52,13 @@ module Ididthis
         tkn.responses[:not_valid] = "The token you have entered cannot be validated.  Please try again."
         tkn.responses[:ask_on_error] = :question
         tkn.validate = lambda do |t|
-          client.validate_token(t)
+          client = Ididthis::API::Client.new(t)
+          client.validate_token()
         end
       end
     end
 
-    def ask_team
+    def ask_team(teams)
       choose do |menu|
         menu.prompt = "Which team will you be posting dones to? "
         menu.select_by = :index_or_name

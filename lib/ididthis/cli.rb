@@ -27,8 +27,8 @@ module Ididthis
     option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "The team to post to."
     option :goal, :aliases => "-g", :type => :boolean, :desc => "Post a goal rather than a done"
     def post(done)
-      c = Ididthis::API::Client.new
-      c.post_done(Ididthis::Config[:token], options[:goal] ? "[] #{done}" : done, options[:team], options)
+      c = Ididthis::API::Client.new(Ididthis::Config[:token])
+      c.post_done(options[:goal] ? "[] #{done}" : done, options[:team], options)
     end
 
     desc "dones [OPTIONS]", "List dones"
@@ -46,8 +46,8 @@ module Ididthis
     def dones
       query_mappings = { date: "done_date", after: "done_date_after", before: "done_date_before", order: "order_by", limit: "page_size" }
       params = Hash[options.map { |k, v| [query_mappings[k] || k, v] }]
-      c = Ididthis::API::Client.new
-      dones = c.get_dones(Ididthis::Config[:token], params)
+      c = Ididthis::API::Client.new(Ididthis::Config[:token])
+      dones = c.get_dones(params)
       dones.each do |done|
         puts "#{yellow(done[:done_date])} #{green(done[:owner])}\t#{done[:raw_text]}".gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m")
       end

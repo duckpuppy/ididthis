@@ -3,8 +3,14 @@ require "rest-client"
 module Ididthis
   module API
     class Client
-      def validate_token(token)
-        RestClient.get(ENDPOINTS[:noop], header_map(token)) do |response|
+      attr_writer :token
+
+      def initialize(token)
+        @token = token
+      end
+
+      def validate_token()
+        RestClient.get(ENDPOINTS[:noop], header_map) do |response|
           case response.code
           when 200
             return true
@@ -14,8 +20,8 @@ module Ididthis
         end
       end
 
-      def get_teams(token)
-        RestClient.get(ENDPOINTS[:team], header_map(token)
+      def get_teams()
+        RestClient.get(ENDPOINTS[:team], header_map
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -28,8 +34,8 @@ module Ididthis
         end
       end
 
-      def get_team(token)
-        RestClient.get(Ididthis::Config[:team], header_map(token)
+      def get_team()
+        RestClient.get(Ididthis::Config[:team], header_map
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -41,13 +47,13 @@ module Ididthis
         end
       end
 
-      def post_done(token, done, team, options)
+      def post_done(done, team, options)
         payload = { raw_text: done, team: team }
         payload[:done_date] = options[:date] if options[:date]
         payload[:meta_data] = options[:metadata] if options[:metadata]
 
         RestClient.post(
-          ENDPOINTS[:dones], payload.to_json, header_map(token)) do |response|
+          ENDPOINTS[:dones], payload.to_json, header_map) do |response|
           case response.code
           when 201
             puts "Posted your done!"
@@ -57,10 +63,10 @@ module Ididthis
         end
       end
 
-      def get_dones(token, options)
+      def get_dones(options)
         RestClient.get(
           ENDPOINTS[:dones],
-          header_map(token).merge(:params => options)
+          header_map.merge(:params => options)
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -72,18 +78,12 @@ module Ididthis
         end
       end
 
-private
-
-      def header_map(token)
+      def header_map()
         {
           :content_type => :json,
           :accept => :json,
-          :Authorization => tokenize(token),
+          :Authorization => "Token #{@token}"
         }
-      end
-
-      def tokenize(token)
-        "Token #{token}"
       end
     end
   end
