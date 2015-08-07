@@ -5,8 +5,13 @@ require "ididthis"
 module Ididthis
   # Class providing the command line interface processing
   class CommandLine < Thor
-    class_option :verbose, :type => :boolean
-    class_option :color, :type => :boolean
+    class_option :verbose,
+                 :type    => :boolean,
+                 :default => false
+    class_option :color,
+                 :type    => :boolean,
+                 :default => true,
+                 :desc    => "Colorize output"
 
     desc "configure", "(Re)configure the client."
     long_desc <<-CONFIGURE
@@ -122,18 +127,18 @@ module Ididthis
       dones.each do |done|
         print format_column(done[:done_date], COLORS[:yellow])
         print format_column(done[:owner], COLORS[:green], " ")
-        puts format_column(highlight_tags(done[:raw_text]), nil, "\t")
+        puts format_column(highlight_tags(done[:raw_text]), "", "\t")
       end
     end
 
     def highlight_tags(done_text)
-      done_text.gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m")
+      options[:color] ? done_text.gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m") : done_text
     end
 
     def format_column(text, color_code, prefix = "", suffix = "")
-      column_text = "#{prefix}#{color_code if color_code}"
+      column_text = "#{prefix}#{color_code if options[:color] && color_code}"
       column_text += text
-      column_text += "#{COLORS[:reset] if color_code}#{suffix}"
+      column_text += "#{COLORS[:reset] if options[:color] && color_code}#{suffix}"
     end
 
     COLORS = {
