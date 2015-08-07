@@ -1,4 +1,4 @@
-require 'git-version-bump'
+require "git-version-bump"
 
 module Ididthis
   VERSION = GVB.version

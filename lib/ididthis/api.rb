@@ -2,6 +2,7 @@ require "rest-client"
 
 module Ididthis
   module API
+    # TODO: Investigate using the ActiveResource-style calls
     # Class for accessing the iDoneThis API
     class Client
       attr_writer :token
@@ -22,7 +23,8 @@ module Ididthis
       end
 
       def teams
-        RestClient.get(ENDPOINTS[:team], header_map
+        RestClient.get(
+          ENDPOINTS[:team], header_map
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -37,7 +39,8 @@ module Ididthis
       end
 
       def team
-        RestClient.get(Ididthis::Config[:team], header_map
+        RestClient.get(
+          Ididthis::Config[:team], header_map
         ) do |response, request, result, &block|
           case response.code
           when 200

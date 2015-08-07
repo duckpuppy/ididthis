@@ -44,23 +44,65 @@ module Ididthis
       post_options[:done_date] = options[:date] if options[:date]
       post_options[:meta_data] = options[:metadata] if options[:metadata]
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
-      c.post_done(options[:goal] ? "[] #{done}" : done, options[:team], post_options)
+      c.post_done(
+        options[:goal] ? "[] #{done}" : done, options[:team],
+        post_options
+      )
     end
 
     desc "dones [OPTIONS]", "List dones"
     long_desc <<-DONES
     DONES
-    option :team, :aliases => "-t", :type => :string, :default => Ididthis::Config[:team], :banner => "SHORT_NAME", :desc => "Show only dones from TEAM"
-    option :owner, :aliases => "-o", :type => :string, :banner => "USERNAME", :desc => "Show only dones belonging to USERNAME"
-    option :date, :aliases => "-d", :type => :string, :banner => "YYYY-MM-DD, yesterday, or today", :desc => "Show only dones from DATE"
-    option :after, :type => :string, :banner => "YYYY-MM-DD", :desc => "Show only dones on or after DATE"
-    option :before, :type => :string, :banner => "YYYY-MM-DD", :desc => "Show only dones on or before DATE"
-    option :tags, :type => :string, :banner => "TAG...", :desc => "Show only dones tagged with TAGs.  Comma separated list."
-    option :order, :type => :string, :banner => "ORDER", :enum => ["created", "done_date", "-created", "-done_date"], :desc => "Order results by ORDER."
-    option :limit, :aliases => "-l", :type => :numeric, :banner => "LIMIT", :desc => "Limit the number of results returned. Maximum of 100."
-    option :page, :aliases => "-p", :type => :numeric, :banner => "PAGE", :desc => "Used in conjunction with --limit to get more results."
+    option :team,
+           :aliases => "-t",
+           :type    => :string,
+           :default => Ididthis::Config[:team],
+           :banner  => "SHORT_NAME",
+           :desc    => "Show only dones from TEAM"
+    option :owner,
+           :aliases => "-o",
+           :type    => :string,
+           :banner  => "USERNAME",
+           :desc    => "Show only dones belonging to USERNAME"
+    option :date,
+           :aliases => "-d",
+           :type    => :string,
+           :banner  => "YYYY-MM-DD, yesterday, or today",
+           :desc    => "Show only dones from DATE"
+    option :after,
+           :type    => :string,
+           :banner  => "YYYY-MM-DD",
+           :desc    => "Show only dones on or after DATE"
+    option :before,
+           :type    => :string,
+           :banner  => "YYYY-MM-DD",
+           :desc    => "Show only dones on or before DATE"
+    option :tags,
+           :type    => :string,
+           :banner  => "TAG...",
+           :desc    => "Show only dones tagged with TAGs. Comma separated list."
+    option :order,
+           :type    => :string,
+           :banner  => "ORDER",
+           :enum    => ["created", "done_date", "-created", "-done_date"],
+           :desc    => "Order results by ORDER."
+    option :limit,
+           :aliases => "-l",
+           :type    => :numeric,
+           :banner  => "LIMIT",
+           :desc    => "Limit the number of results returned. Maximum of 100."
+    option :page,
+           :aliases => "-p",
+           :type    => :numeric,
+           :banner  => "PAGE",
+           :desc    => "Used in conjunction with --limit to get more results."
     def dones
-      query_mappings = { date: "done_date", after: "done_date_after", before: "done_date_before", order: "order_by", limit: "page_size" }
+      query_mappings = {
+        date: "done_date",
+        after: "done_date_after",
+        before: "done_date_before",
+        order: "order_by",
+        limit: "page_size" }
       params = Hash[options.map { |k, v| [query_mappings[k] || k, v] }]
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
       print_dones(c.dones(params))
@@ -72,21 +114,27 @@ module Ididthis
 
   private
 
+    # TODO: Break output to separate formatter classes
     def print_dones(dones)
       dones.each do |done|
-        puts "#{yellow(done[:done_date])} #{green(done[:owner])}\t#{done[:raw_text]}".gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m")
+        print format_column(done[:done_date], COLORS[:yellow])
+        print format_column(done[:owner], COLORS[:green], " ")
+        puts format_column(highlight_tags(done[:raw_text]), nil, "\t")
       end
     end
 
-    def colorize(text, color_code)
-      "#{color_code}#{text}\e[0m"
+    def highlight_tags(done_text)
+      done_text.gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m")
     end
 
-    def red(text); colorize(text, COLORS[:red]); end
-    def green(text); colorize(text, COLORS[:green]); end
-    def yellow(text); colorize(text, COLORS[:yellow]); end
+    def format_column(text, color_code, prefix = "", suffix = "")
+      column_text = "#{prefix}#{color_code if color_code}"
+      column_text += text
+      column_text += "#{COLORS[:reset] if color_code}#{suffix}"
+    end
 
     COLORS = {
+      reset: "\e[0m",
       red: "\e[31m",
       green: "\e[32m",
       yellow: "\e[33m"

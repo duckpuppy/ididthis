@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require: rubocop-rspec
 
 AllCops:
@@ -7,16 +9,6 @@ AllCops:
     - 'ididthis.gemspec'
   Exclude:
     - bin/*
-
-Encoding:
-  Enabled: false
-
-CollectionMethods:
-  PreferredMethods:
-    collect:  'map'
-    inject:   'reduce'
-    find:     'detect'
-    find_all: 'select'
 
 # Enforce outdented access modifiers
 AccessModifierIndentation:
@@ -28,6 +20,3 @@ EmptyLinesAroundAccessModifier:
 # Standardize on double quotes
 StringLiterals:
   EnforcedStyle: double_quotes
-
-Style/HashSyntax:
-  Enabled: false

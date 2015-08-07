@@ -34,7 +34,7 @@ task test: :spec
 
 namespace :reports do
   desc "Run all code analysis tools"
-  task :run => [:test, '^rubocop'] 
+  task :run => [:test, "^rubocop"]
 
   desc "Open test coverage in browser"
   task :coverage => [:test] do
@@ -50,4 +50,3 @@ namespace :reports do
     `open coverage/rubocop.html`
   end
 end
-
