@@ -1,39 +1,46 @@
-require 'rest-client'
+require "rest-client"
 
 module Ididthis
   module API
+    # TODO: Investigate using the ActiveResource-style calls
+    # Class for accessing the iDoneThis API
     class Client
-      def validate_token(token)
-        RestClient.get(ENDPOINTS[:noop], {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}) { |response, request, result, &block|
+      attr_writer :token
+
+      def initialize(token)
+        @token = token
+      end
+
+      def validate_token
+        RestClient.get(ENDPOINTS[:noop], header_map) do |response|
           case response.code
           when 200
             return true
           else
             return false
           end
-        }
+        end
       end
 
-      def get_teams(token)
+      def teams
         RestClient.get(
-          ENDPOINTS[:team], 
-          {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
+          ENDPOINTS[:team], header_map
         ) do |response, request, result, &block|
           case response.code
           when 200
             resp = JSON.parse(response.body, :symbolize_names => true)
-            # TODO This is not right, need to throw an error when no teams are found
-            resp[:ok] ? resp[:results] : [] 
+            # FIXME: This is not right, need to throw an error when no teams
+            #   are found
+            resp[:ok] ? resp[:results] : []
           else
             response.return!(request, result, &block)
           end
         end
       end
 
-      def get_team(token)
+      def team
         RestClient.get(
-          Ididthis::Config[:team], 
-          {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
+          Ididthis::Config[:team], header_map
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -42,19 +49,13 @@ module Ididthis
           else
             response.return!(request, result, &block)
           end
-        end 
+        end
       end
 
-      def post_done(token, done, team, options)
-        payload = {:raw_text => done, :team => team}
-        payload[:done_date] = options[:date] if options[:date]
-        payload[:meta_data] = options[:metadata] if options[:metadata]
-
+      def post_done(done, team, options)
+        payload = { raw_text: done, team: team }.merge(options)
         RestClient.post(
-          ENDPOINTS[:dones], 
-          payload.to_json, 
-          {:content_type => :json, :accept => :json, :Authorization => tokenize(token)}
-        ) do |response, request, result, &block|
+          ENDPOINTS[:dones], payload.to_json, header_map) do |response|
           case response.code
           when 201
             puts "Posted your done!"
@@ -64,10 +65,10 @@ module Ididthis
         end
       end
 
-      def get_dones(token, options)
+      def dones(options)
         RestClient.get(
           ENDPOINTS[:dones],
-          {:content_type => :json, :accept => :json, :Authorization => tokenize(token), :params => options},
+          header_map.merge(:params => options)
         ) do |response, request, result, &block|
           case response.code
           when 200
@@ -79,11 +80,13 @@ module Ididthis
         end
       end
 
-      private
-      def tokenize(token)
-        "Token #{token}"
+      def header_map
+        {
+          :content_type => :json,
+          :accept => :json,
+          :Authorization => "Token #{@token}"
+        }
       end
     end
   end
 end
-

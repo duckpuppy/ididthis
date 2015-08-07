@@ -1,0 +1,22 @@
+inherit_from: .rubocop_todo.yml
+
+require: rubocop-rspec
+
+AllCops:
+  Include:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'ididthis.gemspec'
+  Exclude:
+    - bin/*
+
+# Enforce outdented access modifiers
+AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+# Standardize on double quotes
+StringLiterals:
+  EnforcedStyle: double_quotes
