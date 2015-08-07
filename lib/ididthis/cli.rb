@@ -5,9 +5,6 @@ require "ididthis"
 module Ididthis
   # Class providing the command line interface processing
   class CommandLine < Thor
-    class_option :verbose,
-                 :type    => :boolean,
-                 :default => false
     class_option :color,
                  :type    => :boolean,
                  :default => true,
