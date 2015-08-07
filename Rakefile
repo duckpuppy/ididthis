@@ -31,10 +31,10 @@ end
 task default: :spec
 task test: :spec
 
-namespace :reports do
-  desc "Run all code analysis tools"
-  task :run => [:test, "^rubocop"]
+desc "Run all code analysis tools"
+task :analyze => [:test, :rubocop]
 
+namespace :reports do
   desc "Open test coverage in browser"
   task :coverage => [:test] do
     # TODO: Switch based on OS
