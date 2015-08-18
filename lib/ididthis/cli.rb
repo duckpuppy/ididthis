@@ -109,7 +109,6 @@ module Ididthis
         "order"  => "order_by",
         "limit"  => "page_size" }
       params = Hash[options.map { |k, v| [query_mappings[k] || k, v] }]
-      puts params
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
       print_dones(c.dones(params))
     end
