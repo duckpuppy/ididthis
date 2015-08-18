@@ -103,12 +103,13 @@ module Ididthis
            :desc    => "Used in conjunction with --limit to get more results."
     def dones
       query_mappings = {
-        date: "done_date",
-        after: "done_date_after",
-        before: "done_date_before",
-        order: "order_by",
-        limit: "page_size" }
+        "date"   => "done_date",
+        "after"  => "done_date_after",
+        "before" => "done_date_before",
+        "order"  => "order_by",
+        "limit"  => "page_size" }
       params = Hash[options.map { |k, v| [query_mappings[k] || k, v] }]
+      puts params
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
       print_dones(c.dones(params))
     end
