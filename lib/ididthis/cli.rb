@@ -119,30 +119,21 @@ module Ididthis
 
   private
 
-    # TODO: Break output to separate formatter classes
     def print_dones(dones)
-      dones.each do |done|
-        print format_column(done[:done_date], COLORS[:yellow])
-        print format_column(done[:owner], COLORS[:green], " ")
-        puts format_column(highlight_tags(done[:raw_text]), "", "\t")
-      end
+      print_table(
+        dones.map do |done|
+          [
+            set_color(done[:done_date], :yellow),
+            set_color(done[:owner], :green),
+            highlight_tags(done[:raw_text])
+          ]
+        end,
+        :indent => 4
+      )
     end
 
     def highlight_tags(done_text)
       options[:color] ? done_text.gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m") : done_text
     end
-
-    def format_column(text, color_code, prefix = "", suffix = "")
-      column_text = "#{prefix}#{color_code if options[:color] && color_code}"
-      column_text += text
-      column_text += "#{COLORS[:reset] if options[:color] && color_code}#{suffix}"
-    end
-
-    COLORS = {
-      reset: "\e[0m",
-      red: "\e[31m",
-      green: "\e[32m",
-      yellow: "\e[33m"
-    }
   end
 end
