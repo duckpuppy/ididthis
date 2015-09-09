@@ -4,11 +4,13 @@ require "ididthis"
 
 module Ididthis
   # Class providing the command line interface processing
-  class CommandLine < Thor
+  class CLI < Thor
     class_option :color,
                  :type    => :boolean,
                  :default => true,
                  :desc    => "Colorize output"
+    stop_on_unknown_option! :post
+    check_unknown_options! :except => :post
 
     desc "configure", "(Re)configure the client."
     long_desc <<-CONFIGURE
@@ -44,13 +46,14 @@ module Ididthis
            :aliases => "-g",
            :type    => :boolean,
            :desc    => "Post a goal rather than a done"
-    def post(done)
+    def post(*done)
+      text = done.join(" ")
       post_options = {}
       post_options[:done_date] = options[:date] if options[:date]
       post_options[:meta_data] = options[:metadata] if options[:metadata]
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
       c.post_done(
-        options[:goal] ? "[] #{done}" : done, options[:team],
+        options[:goal] ? "[] #{text}" : text, options[:team],
         post_options
       )
     end
