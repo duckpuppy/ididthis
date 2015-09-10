@@ -14,7 +14,7 @@ describe Ididthis::CLI do
       end
 
       args = ["post", "--date", "01-01-15", "foo", "bar", "baz"]
-      Ididthis::CLI.start(args)
+      described_class.start(args)
     end
   end
 end
