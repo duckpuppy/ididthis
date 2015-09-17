@@ -5,7 +5,8 @@ require "dotenv/tasks"
 require "rake/clean"
 require "rdoc/task"
 require "rubocop/rake_task"
-require 'rake/version_task'
+require "rake/version_task"
+require "rdoc/task"
 
 lib_dir = File.expand_path("lib", File.dirname(__FILE__))
 $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
@@ -21,6 +22,14 @@ RuboCop::RakeTask.new do |task|
   task.requires << "rubocop-rspec"
   task.options = ["-fh", "-ocoverage/rubocop.html",
                   "-fj", "-ocoverage/rubocop.json"]
+end
+
+Rake::RDocTask.new do |doc|
+  doc.title    = "version #{Version.current}"
+  doc.rdoc_dir = "doc"
+  doc.main     = "README.rdoc"
+  doc.rdoc_files.include("*.rdoc")
+  doc.rdoc_files.include("lib/**/*.rb")
 end
 
 # Gem::Tasks.new(
