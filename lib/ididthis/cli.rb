@@ -4,7 +4,7 @@ require "ididthis"
 
 module Ididthis
   # Class providing the command line interface processing
-  class CLI < Thor
+  class CLI < Thor # rubocop:disable Metrics/ClassLength
     class_option :color,
                  :type    => :boolean,
                  :default => true,
@@ -48,14 +48,20 @@ module Ididthis
            :desc    => "Post a goal rather than a done"
     def post(*done)
       text = done.join(" ")
-      post_options = {}
-      post_options[:done_date] = options[:date] if options[:date]
-      post_options[:meta_data] = options[:metadata] if options[:metadata]
+      post_options = map_post_options
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
       c.post_done(
         options[:goal] ? "[] #{text}" : text, options[:team],
         post_options
       )
+    end
+
+    def map_post_options
+      post_options = {}
+      post_options[:done_date] = options[:date]     if options[:date]
+      post_options[:meta_data] = options[:metadata] if options[:metadata]
+
+      post_options
     end
 
     desc "dones [OPTIONS]", "List dones"
@@ -122,30 +128,21 @@ module Ididthis
 
   private
 
-    # TODO: Break output to separate formatter classes
     def print_dones(dones)
-      dones.each do |done|
-        print format_column(done[:done_date], COLORS[:yellow])
-        print format_column(done[:owner], COLORS[:green], " ")
-        puts format_column(highlight_tags(done[:raw_text]), "", "\t")
-      end
+      print_table(
+        dones.map do |done|
+          [
+            set_color(done[:done_date], :yellow),
+            set_color(done[:owner], :green),
+            highlight_tags(done[:raw_text])
+          ]
+        end,
+        :indent => 4
+      )
     end
 
     def highlight_tags(done_text)
       options[:color] ? done_text.gsub(/(#\b[^\s]+\b)/, "\e[31m\\1\e[0m") : done_text
     end
-
-    def format_column(text, color_code, prefix = "", suffix = "")
-      column_text = "#{prefix}#{color_code if options[:color] && color_code}"
-      column_text += text
-      column_text += "#{COLORS[:reset] if options[:color] && color_code}#{suffix}"
-    end
-
-    COLORS = {
-      reset: "\e[0m",
-      red: "\e[31m",
-      green: "\e[32m",
-      yellow: "\e[33m"
-    }
   end
 end
