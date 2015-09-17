@@ -4,7 +4,7 @@ require "ididthis"
 
 module Ididthis
   # Class providing the command line interface processing
-  class CLI < Thor
+  class CLI < Thor # rubocop:disable Metrics/ClassLength
     class_option :color,
                  :type    => :boolean,
                  :default => true,
@@ -48,14 +48,20 @@ module Ididthis
            :desc    => "Post a goal rather than a done"
     def post(*done)
       text = done.join(" ")
-      post_options = {}
-      post_options[:done_date] = options[:date] if options[:date]
-      post_options[:meta_data] = options[:metadata] if options[:metadata]
+      post_options = map_post_options
       c = Ididthis::API::Client.new(Ididthis::Config[:token])
       c.post_done(
         options[:goal] ? "[] #{text}" : text, options[:team],
         post_options
       )
+    end
+
+    def map_post_options
+      post_options = {}
+      post_options[:done_date] = options[:date]     if options[:date]
+      post_options[:meta_data] = options[:metadata] if options[:metadata]
+
+      post_options
     end
 
     desc "dones [OPTIONS]", "List dones"
