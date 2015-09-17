@@ -5,7 +5,6 @@ rescue LoadError
   raise "You must gem install win32console to use color on Windows"
 end
 
-require "ididthis/version"
 require "ididthis/config"
 require "ididthis/api"
 require "ididthis/cli"
