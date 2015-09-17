@@ -34,4 +34,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop", "~> 0.33"
   spec.add_development_dependency "rubocop-rspec", "~> 1.3"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 0.4"
+  spec.add_development_dependency "guard", "~> 2.0"
+  spec.add_development_dependency "guard-rspec", "~> 4.0"
+  spec.add_development_dependency "guard-rubocop", "~> 1.0"
+  spec.add_development_dependency "terminal-notifier-guard"
+  spec.add_development_dependency "libnotify"
 end
