@@ -56,14 +56,6 @@ module Ididthis
       )
     end
 
-    def map_post_options
-      post_options = {}
-      post_options[:done_date] = options[:date]     if options[:date]
-      post_options[:meta_data] = options[:metadata] if options[:metadata]
-
-      post_options
-    end
-
     desc "dones [OPTIONS]", "List dones"
     long_desc <<-DONES
     DONES
@@ -127,6 +119,14 @@ module Ididthis
     end
 
   private
+
+    def map_post_options
+      post_options = {}
+      post_options[:done_date] = options[:date]     if options[:date]
+      post_options[:meta_data] = options[:metadata] if options[:metadata]
+
+      post_options
+    end
 
     def print_dones(dones)
       print_table(
