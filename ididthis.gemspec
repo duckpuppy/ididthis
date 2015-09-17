@@ -1,12 +1,11 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ididthis/version"
 
 Gem::Specification.new do |spec|
   spec.name                  = "ididthis"
   spec.description           = "A command line utility for posting and viewing dones on iDidThis."
-  spec.version               = Ididthis::VERSION
+  spec.version               = File.read("VERSION")
   spec.authors               = ["Patrick Aikens"]
   spec.email                 = ["paikens@gmail.com"]
 
@@ -39,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rubocop", "~> 1.0"
   spec.add_development_dependency "terminal-notifier-guard"
   spec.add_development_dependency "libnotify"
+  spec.add_development_dependency "version", "~> 1.0"
 end
