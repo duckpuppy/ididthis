@@ -23,17 +23,15 @@ module Ididthis
       end
 
       def teams
-        RestClient.get(
-          ENDPOINTS[:team], header_map
-        ) do |response, request, result, &block|
-          case response.code
+        RestClient.get(ENDPOINTS[:team], header_map) do |resp, req, res, &blk|
+          case resp.code
           when 200
-            resp = JSON.parse(response.body, symbolize_names: true)
+            response = JSON.parse(resp.body, symbolize_names: true)
             # FIXME: This is not right, need to throw an error when no teams
             #   are found
-            resp[:ok] ? resp[:results] : []
+            response[:ok] ? response[:results] : []
           else
-            response.return!(request, result, &block)
+            resp.return!(req, res, &blk)
           end
         end
       end
@@ -41,13 +39,13 @@ module Ididthis
       def team
         RestClient.get(
           Ididthis::Config[:team], header_map
-        ) do |response, request, result, &block|
-          case response.code
+        ) do |resp, req, res, &blk|
+          case resp.code
           when 200
-            resp = JSON.parse(response.body, symbolize_names: true)
-            resp[:ok] ? resp[:result] : {}
+            response = JSON.parse(resp.body, symbolize_names: true)
+            response[:ok] ? response[:result] : {}
           else
-            response.return!(request, result, &block)
+            resp.return!(req, res, &blk)
           end
         end
       end

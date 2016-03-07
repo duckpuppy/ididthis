@@ -50,11 +50,11 @@ module Ididthis
       ask("iDoneThis API Token: ") do |tkn|
         tkn.default = configs[:token]
         tkn.whitespace = :strip
-        tkn.responses[:not_valid] = "The token you have entered cannot be validated.  Please try again."
+        tkn.responses[:not_valid] =
+          "The token you have entered cannot be validated.  Please try again."
         tkn.responses[:ask_on_error] = :question
         tkn.validate = lambda do |t|
-          client = Ididthis::API::Client.new(t)
-          client.validate_token
+          Ididthis::API::Client.new(t).validate_token
         end
       end
     end
