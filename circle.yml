@@ -3,6 +3,11 @@ machine:
     version:
       2.2.0
 
+dependencies:
+  pre:
+    - gem uninstall bundler
+    - gem install bundler
+
 test:
   override:
     - bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
