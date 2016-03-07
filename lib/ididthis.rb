@@ -15,11 +15,12 @@ require "json"
 # Main module
 module Ididthis
   CONFIG_FILE = File.expand_path("~/.ididthis")
-  API_VERSION = "0.1"
-  API_ROOT = "https://idonethis.com/api/v#{API_VERSION}"
+  API_VERSION = "0.1".freeze
+  API_ROOT = "https://idonethis.com/api/v#{API_VERSION}".freeze
 
-  ENDPOINTS = {}
-  ENDPOINTS[:team] = "#{API_ROOT}/teams/"
-  ENDPOINTS[:dones] = "#{API_ROOT}/dones/"
-  ENDPOINTS[:noop] = "#{API_ROOT}/noop/"
+  ENDPOINTS = {
+    team: "#{API_ROOT}/teams/",
+    dones: "#{API_ROOT}/dones/",
+    noop: "#{API_ROOT}/noop/"
+  }.freeze
 end

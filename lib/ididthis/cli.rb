@@ -6,11 +6,11 @@ module Ididthis
   # Class providing the command line interface processing
   class CLI < Thor # rubocop:disable Metrics/ClassLength
     class_option :color,
-                 :type    => :boolean,
-                 :default => true,
-                 :desc    => "Colorize output"
+                 type: :boolean,
+                 default: true,
+                 desc: "Colorize output"
     stop_on_unknown_option! :post
-    check_unknown_options! :except => :post
+    check_unknown_options! except: :post
 
     desc "configure", "(Re)configure the client."
     long_desc <<-CONFIGURE
@@ -32,20 +32,20 @@ module Ididthis
     If any tag doesn"t already exist, it will be created.
     POST
     option :date,
-           :aliases => "-d",
-           :type    => :string,
-           :banner  => "YYYY-MM-DD",
-           :desc    => "The date for this done."
+           aliases: "-d",
+           type: :string,
+           banner: "YYYY-MM-DD",
+           desc: "The date for this done."
     option :team,
-           :aliases => "-t",
-           :type    => :string,
-           :default => Ididthis::Config[:team],
-           :banner  => "SHORT_NAME",
-           :desc    => "The team to post to."
+           aliases: "-t",
+           type: :string,
+           default: Ididthis::Config[:team],
+           banner: "SHORT_NAME",
+           desc: "The team to post to."
     option :goal,
-           :aliases => "-g",
-           :type    => :boolean,
-           :desc    => "Post a goal rather than a done"
+           aliases: "-g",
+           type: :boolean,
+           desc: "Post a goal rather than a done"
     def post(*done)
       text = done.join(" ")
       post_options = map_post_options
@@ -60,48 +60,48 @@ module Ididthis
     long_desc <<-DONES
     DONES
     option :team,
-           :aliases => "-t",
-           :type    => :string,
-           :default => Ididthis::Config[:team],
-           :banner  => "SHORT_NAME",
-           :desc    => "Show only dones from TEAM"
+           aliases: "-t",
+           type: :string,
+           default: Ididthis::Config[:team],
+           banner: "SHORT_NAME",
+           desc: "Show only dones from TEAM"
     option :owner,
-           :aliases => "-o",
-           :type    => :string,
-           :banner  => "USERNAME",
-           :desc    => "Show only dones belonging to USERNAME"
+           aliases: "-o",
+           type: :string,
+           banner: "USERNAME",
+           desc: "Show only dones belonging to USERNAME"
     option :date,
-           :aliases => "-d",
-           :type    => :string,
-           :banner  => "YYYY-MM-DD, yesterday, or today",
-           :desc    => "Show only dones from DATE"
+           aliases: "-d",
+           type: :string,
+           banner: "YYYY-MM-DD, yesterday, or today",
+           desc: "Show only dones from DATE"
     option :after,
-           :type    => :string,
-           :banner  => "YYYY-MM-DD",
-           :desc    => "Show only dones on or after DATE"
+           type: :string,
+           banner: "YYYY-MM-DD",
+           desc: "Show only dones on or after DATE"
     option :before,
-           :type    => :string,
-           :banner  => "YYYY-MM-DD",
-           :desc    => "Show only dones on or before DATE"
+           type: :string,
+           banner: "YYYY-MM-DD",
+           desc: "Show only dones on or before DATE"
     option :tags,
-           :type    => :string,
-           :banner  => "TAG...",
-           :desc    => "Show only dones tagged with TAGs. Comma separated list."
+           type: :string,
+           banner: "TAG...",
+           desc: "Show only dones tagged with TAGs. Comma separated list."
     option :order,
-           :type    => :string,
-           :banner  => "ORDER",
-           :enum    => ["created", "done_date", "-created", "-done_date"],
-           :desc    => "Order results by ORDER."
+           type: :string,
+           banner: "ORDER",
+           enum: ["created", "done_date", "-created", "-done_date"],
+           desc: "Order results by ORDER."
     option :limit,
-           :aliases => "-l",
-           :type    => :numeric,
-           :banner  => "LIMIT",
-           :desc    => "Limit the number of results returned. Maximum of 100."
+           aliases: "-l",
+           type: :numeric,
+           banner: "LIMIT",
+           desc: "Limit the number of results returned. Maximum of 100."
     option :page,
-           :aliases => "-p",
-           :type    => :numeric,
-           :banner  => "PAGE",
-           :desc    => "Used in conjunction with --limit to get more results."
+           aliases: "-p",
+           type: :numeric,
+           banner: "PAGE",
+           desc: "Used in conjunction with --limit to get more results."
     def dones
       query_mappings = {
         "date"   => "done_date",
@@ -137,7 +137,7 @@ module Ididthis
             highlight_tags(done[:raw_text])
           ]
         end,
-        :indent => 4
+        indent: 4
       )
     end
 

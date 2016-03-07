@@ -32,9 +32,9 @@ module Ididthis
       team = ask_team(teams)
 
       File.open(PATH, "w") do |f|
-        f << { :token => token,
-               :team => team[:short_name],
-               :teams => teams }.to_yaml
+        f << { token: token,
+               team: team[:short_name],
+               teams: teams }.to_yaml
       end
     end
 

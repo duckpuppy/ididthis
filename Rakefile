@@ -32,11 +32,11 @@ task default: :spec
 task test: :spec
 
 desc "Run all code analysis tools"
-task :analyze => [:test, :rubocop]
+task analyze: [:test, :rubocop]
 
 namespace :reports do
   desc "Open test coverage in browser"
-  task :coverage => [:test] do
+  task coverage: [:test] do
     # TODO: Switch based on OS
     `open coverage/index.html`
   end

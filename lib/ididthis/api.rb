@@ -28,7 +28,7 @@ module Ididthis
         ) do |response, request, result, &block|
           case response.code
           when 200
-            resp = JSON.parse(response.body, :symbolize_names => true)
+            resp = JSON.parse(response.body, symbolize_names: true)
             # FIXME: This is not right, need to throw an error when no teams
             #   are found
             resp[:ok] ? resp[:results] : []
@@ -44,7 +44,7 @@ module Ididthis
         ) do |response, request, result, &block|
           case response.code
           when 200
-            resp = JSON.parse(response.body, :symbolize_names => true)
+            resp = JSON.parse(response.body, symbolize_names: true)
             resp[:ok] ? resp[:result] : {}
           else
             response.return!(request, result, &block)
@@ -68,11 +68,11 @@ module Ididthis
       def dones(options)
         RestClient.get(
           ENDPOINTS[:dones],
-          header_map.merge(:params => options)
+          header_map.merge(params: options)
         ) do |response, request, result, &block|
           case response.code
           when 200
-            resp = JSON.parse(response, :symbolize_names => true)
+            resp = JSON.parse(response, symbolize_names: true)
             resp[:ok] ? resp[:results] : {}
           else
             response.return!(request, result, &block)
@@ -82,9 +82,9 @@ module Ididthis
 
       def header_map
         {
-          :content_type => :json,
-          :accept => :json,
-          :Authorization => "Token #{@token}"
+          content_type: :json,
+          accept: :json,
+          Authorization: "Token #{@token}"
         }
       end
     end

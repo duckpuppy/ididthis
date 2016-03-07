@@ -30,31 +30,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 12
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles.
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
-# Offense count: 24
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/AlignParameters:
-  Enabled: false
-
 # Offense count: 1
 Style/Documentation:
   Exclude:
     - 'lib/ididthis/version.rb'
-
-# Offense count: 4
-# Configuration parameters: Exclude.
-Style/FileName:
-  Exclude:
-    - 'bin/cc-tddium-post-worker'
-    - 'bin/git-version-bump'
-    - 'bin/ruby-parse'
-    - 'bin/ruby-rewrite'
 
 # Offense count: 58
 # Cop supports --auto-correct.
@@ -62,8 +41,3 @@ Style/FileName:
 Style/HashSyntax:
   Enabled: false
 
-# Offense count: 176
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiterals:
-  Enabled: false
