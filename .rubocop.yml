@@ -9,6 +9,7 @@ AllCops:
     - 'ididthis.gemspec'
   Exclude:
     - bin/*
+    - vendor/**/*
 
 # Enforce outdented access modifiers
 AccessModifierIndentation:
