@@ -118,6 +118,14 @@ module Ididthis
     def teams
     end
 
+    desc "use [SHORT_NAME]", "Switch the active team used for other commands."
+    long_desc <<-USE
+    USE
+    def use(team)
+      # TODO: Calling this without a team should prompt the user
+      #       to choose a team via interactive menu
+    end
+
   private
 
     def map_post_options
