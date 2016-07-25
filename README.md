@@ -4,6 +4,8 @@
 [![Code Climate](https://codeclimate.com/github/duckpuppy/ididthis/badges/gpa.svg)] [code_climate]
 [![Coverage Status](https://coveralls.io/repos/duckpuppy/ididthis/badge.svg?branch=develop&service=github)] [coveralls]
 [![Downloads](https://img.shields.io/gem/dtv/ididthis.svg)]()
+[![Stories in Ready](https://badge.waffle.io/duckpuppy/ididthis.png?label=ready&title=Ready)](http://waffle.io/duckpuppy/ididthis)
+
 
 [rubygems]: http://badge.fury.io/rb/ididthis
 [travis]: https://travis-ci.org/duckpuppy/ididthis
